@@ -13,10 +13,10 @@ yBound = 224
 
 img = Image.new('RGB', (xBound, yBound))
 
-color = [255, 254, 254]
-colorname = "white"
+color = [255, 0, 0]
+colorname = "Red"
 
-threashold = 50
+threashold = 125
 needColor = True
 
 def findSum(num, bound):
