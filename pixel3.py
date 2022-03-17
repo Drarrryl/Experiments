@@ -13,11 +13,11 @@ yBound = 224
 
 img = Image.new('RGB', (xBound, yBound))
 
-color = [0, 255, 0]
+color = [255, 126, 0]
 colorname = "White"
 
-threasholdNum = 255
-threasholdDif = 127.5 + (color[0] + color[1] + color[2])/3
+threasholdNum = (color[0] + color[1] + color[2])/6
+threasholdDif = returnGreat(color[0], color[1], color[2])/2 + (color[0] + color[1] + color[2])/3
 needColor = True
 
 """
