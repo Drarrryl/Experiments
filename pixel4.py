@@ -2,19 +2,19 @@
 from PIL import Image
 from functions import returnAvg, returnGreat, returnGreatString, returnLow, findSum, findDif, difGreat, determineMax
 # creating a image object
-im = Image.open(r"/workspace/Experiments/Pictures/leave.jpg")
+im = Image.open(r"/workspace/Experiments/Pictures/oceanPlastic.jpg")
 px = im.load()
 
 # Max = 300
-xBound = 300
+xBound = 1920
 
 #Max = 224
-yBound = 224
+yBound = 1324
 
 img = Image.new('RGB', (xBound, yBound))
 
-color = [0, 255, 0]
-colorname = "Green"
+color = [0, 0, 150]
+colorname = "Blue"
 rC = color[0]
 gC = color[1]
 bC = color[2]
@@ -131,7 +131,7 @@ for x in range(xBound):
             r = px[x,y][0]
             g = px[x,y][1]
             b = px[x,y][2]
-            if inBounds(r, g, b, threasholdDif, threasholdNum, color):
+            if not inBounds(r, g, b, threasholdDif, threasholdNum, color):
                 needColor = False
                 print("Found", colorname, "color at coords:", x, ",", y)
                 img.putpixel((x, y), (r, g, b))

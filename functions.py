@@ -10,7 +10,21 @@ def findDif(num, bound):
     else:
         return num - bound
 
+def returnAvg(a, b, c=False, d=False, e=False, f=False):
+    if a != False and b != False and c != False and d != False and e != False and f != False:
+        return (a + b + c + d + e + f)/6
+    elif a != False and b != False and c != False and d != False and e != False:
+        return (a + b + c + d + e)/5
+    elif a != False and b != False and c != False and d != False:
+        return (a + b + c + d)/4
+    elif a != False and b != False and c != False:
+        return (a + b + c)/3
+    elif a != False and b != False:
+        return (a + b)/2
+
 def returnGreat(a, b, c):
+    if a == b == c:
+        return a
     if a >= b:
         if a >= c:
             return a
