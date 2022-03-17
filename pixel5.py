@@ -2,14 +2,11 @@
 from PIL import Image
 from functions import returnAvg, returnGreat, returnGreatString, returnLow, findSum, findDif, difGreat, determineMax
 # creating a image object
-im = Image.open(r"/workspace/Experiments/Pictures/oceanPlastic.jpg")
+im = Image.open(r"/workspace/Experiments/Pictures/ocean2.png")
 px = im.load()
 
-# Max = 300
-xBound = 1920
-
-#Max = 224
-yBound = 1324
+# Max and Min for Pixels in Image
+xBound, yBound = im.size
 
 img = Image.new('RGB', (xBound, yBound))
 
@@ -19,7 +16,7 @@ rC = color[0]
 gC = color[1]
 bC = color[2]
 colorAvg = (rC + gC + bC)/3
-threasholdNum = returnGreat(rC, gC, bC)*colorAvg/(rC + gC + bC)
+threasholdNum = 255
 threasholdDif = returnGreat(rC, gC, bC)/2 + (rC + gC + bC)/3
 needColor = True
 
