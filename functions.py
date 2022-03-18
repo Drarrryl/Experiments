@@ -76,3 +76,44 @@ def determineMax(inputVal, inputCol):
         return True
     else:
         return False
+    
+from scipy.spatial import KDTree
+from webcolors import (
+    CSS3_NAMES_TO_HEX,
+    hex_to_rgb,
+)
+
+def convert_rgb_to_names(rgb_tuple):
+    
+    # a dictionary of all the hex and their respective names in css3
+    css3_db = CSS3_NAMES_TO_HEX
+    names = []
+    rgb_values = []
+    for color_hex, color_name in css3_db.items():
+        names.append(color_name)
+        rgb_values.append(hex_to_rgb(color_hex))
+    
+    kdt_db = KDTree(rgb_values)
+    distance, index = kdt_db.query(rgb_tuple)
+    return f'{names[index]}'
+
+def rgb2hex(c):
+    return "#{:02x}{:02x}{:02x}".format(int(c[0]), int(c[1]), int(c[2]))  # format(int(c[0]), int(c[1]), int(c[2]))
+
+
+def hex2name(c):
+    h_color = '#{:02x}{:02x}{:02x}'.format(int(c[0]), int(c[1]), int(c[2]))
+    try:
+        nm = webcolors.hex_to_name(h_color, spec='css3')
+    except ValueError as v_error:
+        print("{}".format(v_error))
+        rms_lst = []
+        for img_clr, img_hex in webcolors.CSS3_NAMES_TO_HEX.items():
+            cur_clr = webcolors.hex_to_rgb(img_hex)
+            rmse = np.sqrt(mean_squared_error(c, cur_clr))
+            rms_lst.append(rmse)
+
+        closest_color = rms_lst.index(min(rms_lst))
+
+        nm = list(webcolors.CSS3_NAMES_TO_HEX.items())[closest_color][0]
+    return nm
