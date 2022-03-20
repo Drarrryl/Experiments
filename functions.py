@@ -97,7 +97,15 @@ def get_colour_name(requested_colour):
         actual_name = None
     return closest_name
 
+def rgb2name(rgb):
+    try:
+        named_color = webcolors.rgb_to_name(rgb, spec='css3')
+    except ValueError:
+        named_color = closest_colour(rgb)
+    return named_color
+
 def inColBounds(pxCol, colName):
+    # Finds shades of blue for water
     if colName == "plastic":
         if pxCol == "blue":
             return False
@@ -115,8 +123,11 @@ def inColBounds(pxCol, colName):
             return False
         elif pxCol == "darkslateblue":
             return False
+        elif pxCol == "teal":
+            return False
         else:
             return True
+    # Finds red pixels in an image
     elif colName == "red":
         if pxCol == "brown":
             return True
@@ -146,6 +157,7 @@ def inColBounds(pxCol, colName):
             return True
         else:
             return False
+    # Finds yellow pixels in an image
     elif colName == "yellow":
         if pxCol == "yellow":
             return True
@@ -169,6 +181,7 @@ def inColBounds(pxCol, colName):
             return True
         else:
             return False
+    # Finds green pixels in an image
     elif colName == "green":
         if pxCol == "green":
             return True
@@ -208,6 +221,7 @@ def inColBounds(pxCol, colName):
             return True
         else:
             return False
+    # Finds blue pixels in an image
     elif colName == "blue":
         if pxCol == "blue":
             return True
