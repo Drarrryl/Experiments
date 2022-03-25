@@ -2,7 +2,7 @@
 from PIL import Image
 from functions import returnAvg, returnGreat, returnGreatString, returnLow, findSum, findDif, difGreat, determineMax
 # creating a image object
-im = Image.open(r"/workspace/Experiments/Pictures/ocean2.png")
+im = Image.open(r"/workspace/Experiments/Pictures/redSample2.png")
 px = im.load()
 
 # Max and Min for Pixels in Image
@@ -10,8 +10,8 @@ xBound, yBound = im.size
 
 img = Image.new('RGB', (xBound, yBound))
 
-color = [0, 0, 150]
-colorname = "Blue"
+color = [250, 0, 0]
+colorname = "Red"
 rC = color[0]
 gC = color[1]
 bC = color[2]

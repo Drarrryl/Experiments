@@ -1,7 +1,8 @@
 # Importing Image from PIL package
-from PIL import Image, ImageColor
-from webcolors import rgb_to_name
-from functions import returnGreat, closest_colour, get_colour_name, inColBounds, rgb2name
+from PIL import Image
+from functions import returnAvg, returnGreat, returnGreatString, returnLow, findSum, findDif, difGreat, determineMax
+import time
+import math
 # creating a image object
 im = Image.open(r"/workspace/Experiments/Pictures/oceanPlastic.jpg")
 px = im.load()
@@ -11,23 +12,40 @@ xBound, yBound = im.size
 
 img = Image.new('RGB', (xBound, yBound))
 
-# Available Color Names: red, yellow, green, blue, plastic
-colorname = "plastic"
-
+color = [0, 0, 255]
+colorname = "Blue"
+rC = color[0]
+gC = color[1]
+bC = color[2]
+threshold = 200
 needColor = True
+
+def inBounds(rVal, gVal, bVal, threshold, color):
+    rMean = (rVal + color[0])/2
+    inRoot = (2 + rMean/256) * pow(rVal - color[0], 2) + 4 * pow(gVal - color[1], 2) + (2 + (255 - rMean)/256) * (bVal - color[2])
+    try:
+        dif = math.sqrt(inRoot)
+    except ValueError:
+        return False
+    if dif <= threshold:
+        return False
+    else:
+        return True
 
 for x in range(xBound):
     for y in range(yBound):
-        r = px[x, y][0]
-        g = px[x, y][1]
-        b = px[x, y][2]
-        pxColor = rgb2name((r, g, b))
-        if inColBounds(pxColor, colorname):
-            print("Found", colorname, "at coords:", x, ",", y, pxColor)
+        needColor = True
+        r = px[x,y][0]
+        g = px[x,y][1]
+        b = px[x,y][2]
+        if inBounds(r, g, b, threshold, color):
+            needColor = False
+            print("Found", colorname, "color at coords:", x, ",", y)
             img.putpixel((x, y), (r, g, b))
         else:
             contrast = 50
             f = (returnGreat(r, g, b)-contrast)
             img.putpixel((x, y), (f, f, f))
+            needColor = False
 img.save("newImg.jpg")
 print("Image Saved!")

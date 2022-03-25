@@ -89,14 +89,6 @@ def closest_colour(requested_colour):
         min_colours[(rd + gd + bd)] = name
     return min_colours[min(min_colours.keys())]
 
-def get_colour_name(requested_colour):
-    try:
-        closest_name = actual_name = webcolors.rgb_to_name(requested_colour)
-    except ValueError:
-        closest_name = closest_colour(requested_colour)
-        actual_name = None
-    return closest_name
-
 def rgb2name(rgb):
     try:
         named_color = webcolors.rgb_to_name(rgb, spec='css3')
