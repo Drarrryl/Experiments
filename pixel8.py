@@ -1,15 +1,15 @@
 # Importing Image from PIL package
-from PIL import Image, ImageColor
+from PIL import Image, ImageColor, ImageFilter
 from webcolors import rgb_to_name
 from functions import returnGreat, closest_colour, inColBounds, rgb2name
 # creating a image object
-im = Image.open(r"/workspace/Experiments/Pictures/ocean1.png")
+im = Image.open(r"/workspace/Experiments/Pictures/ocean4.png")
 px = im.load()
 
 # Max and Min for Pixels in Image
 xBound, yBound = im.size
 
-img = Image.new('RGB', (xBound, yBound))
+img = Image.new('L', (xBound, yBound))
 
 # Available Color Names: red, yellow, green, blue, plastic
 colorname = "plastic"
@@ -24,10 +24,14 @@ for x in range(xBound):
         pxColor = rgb2name((r, g, b))
         if inColBounds(pxColor, colorname):
             print("Found", colorname, "at coords:", x, ",", y)
-            img.putpixel((x, y), (r, g, b))
+            img.putpixel((x, y), 255)
         else:
             contrast = 50
             f = (returnGreat(r, g, b)-contrast)
-            img.putpixel((x, y), (f, f, f))
+            img.putpixel((x, y), 0)
 img.save("newImg.jpg")
+print("Image Saved!")
+edgeIm = img.filter(ImageFilter.FIND_EDGES)
+
+edgeIm.save("edgeImg.jpg")
 print("Image Saved!")

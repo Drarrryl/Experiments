@@ -9,7 +9,7 @@ px = im.load()
 # Max and Min for Pixels in Image
 xBound, yBound = im.size
 
-img = Image.new('RGB', (xBound, yBound))
+img = Image.new('1', (xBound, yBound))
 
 # Available Color Names: red, yellow, green, blue, plastic
 colorname = "plastic"
@@ -24,10 +24,10 @@ for x in range(xBound):
         pxColor = rgb2name((r, g, b))
         if inColBounds(pxColor, colorname):
             print("Found", colorname, "at coords:", x, ",", y)
-            img.putpixel((x, y), (r, g, b))
+            img.putpixel((x, y), 1)
         else:
             contrast = 50
             f = (returnGreat(r, g, b)-contrast)
-            img.putpixel((x, y), (f, f, f))
+            img.putpixel((x, y), 0)
 img.save("newImg.jpg")
 print("Image Saved!")
