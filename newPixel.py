@@ -1,16 +1,8 @@
 from PIL import Image, ImageFilter
-im = Image.open(r"/workspace/Experiments/Pictures/ocean3.png")
-imGrey = im.convert("L")
-imGrey.save("greyScale.png")
-imEdges = imGrey.filter(ImageFilter.FIND_EDGES)
-px = imEdges.load()
-xBound, yBound = imGrey.size
-
-coords = []
-
-img = Image.new("L", (xBound, yBound))
+#im = Image.open(r"/workspace/Experiments/Pictures/ocean3.png")
 
 def coordBound(img):
+    xBound, yBound = img.size
     x1 = 0
     x2 = 0
     y1 = 0
@@ -28,6 +20,7 @@ def coordBound(img):
             if px[x, y] > 0:
                 white += 1
             total += 1
+        # Calculates percent of white pixels from edge detected image per x line
         if (white/total) != 1.0:
             percents.append(white/total)
     goodPercents = []
@@ -47,6 +40,7 @@ def coordBound(img):
             if px[x, y] > 0:
                 white += 1
             total += 1
+        # Calculates percent of white pixels from edge detected image per y line
         if (white/total) != 1.0:
             percents.append(white/total)
     goodPercents = []
@@ -57,25 +51,32 @@ def coordBound(img):
     y2 = goodPercents[goodPercents.__len__()-1]
     return ((x1, y1), (x2, y2))
 
-for x in range(xBound):
-    for y in range(yBound):
-        if px[x, y] >= 25:
-            coords.append((x, y))
-            img.putpixel((x, y), px[x, y])
+def zoom(im):
+    imGrey = im.convert("L")
+    imGrey.save("greyScale.png")
+    imEdges = imGrey.filter(ImageFilter.FIND_EDGES)
+    px = imEdges.load()
+    xBound, yBound = imGrey.size
 
-x1, y1 = coordBound(img)[0]
-x2, y2 = coordBound(img)[1]
-newXBound = x2 - x1
-newYBound = y2 - y1
-newImg = Image.new("RGB", (x2 - x1, y2 - y1))
-px = im.load()
-for ix, x in enumerate(range(x1, x2)):
-    for iy, y in enumerate(range(y1, y2)):
-        newImg.putpixel((ix, iy), px[x, y])
+    coords = []
 
+    img = Image.new("L", (xBound, yBound))
+    for x in range(xBound):
+        for y in range(yBound):
+            if px[x, y] >= 25:
+                coords.append((x, y))
+                img.putpixel((x, y), px[x, y])
 
+    x1, y1 = coordBound(img)[0]
+    x2, y2 = coordBound(img)[1]
+    newXBound = x2 - x1
+    newYBound = y2 - y1
+    newImg = Image.new("RGB", (x2 - x1, y2 - y1))
+    px = im.load()
+    for ix, x in enumerate(range(x1, x2)):
+        for iy, y in enumerate(range(y1, y2)):
+            newImg.putpixel((ix, iy), px[x, y])
+    return newImg
 
-print(coordBound(img))
-print(newXBound, newYBound)
-imEdges.save("edgeGrayScale.png")
-newImg.save("result.png")
+#newImg = zoom(im)
+#newImg.save("result.png")
