@@ -31,7 +31,3 @@ for x in range(xBound):
             img.putpixel((x, y), 0)
 img.save("newImg.jpg")
 print("Image Saved!")
-edgeIm = img.filter(ImageFilter.FIND_EDGES)
-
-edgeIm.save("edgeImg.jpg")
-print("Image Saved!")

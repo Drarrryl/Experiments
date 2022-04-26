@@ -1,13 +1,14 @@
-# Importing Image from PIL package
 from PIL import Image, ImageColor
 from webcolors import rgb_to_name
 from functions import returnGreat, closest_colour, inColBounds, rgb2name
-# creating a image object
-im = Image.open(r"/workspace/Experiments/Pictures/ocean1.png")
-px = im.load()
+from newPixel import zoom, coordBound
+
+im = Image.open(r"C:\Users\trued\Documents\Python\Experiments\Pictures\ocean3.png")
+newImg = zoom(im)
+px = newImg.load()
 
 # Max and Min for Pixels in Image
-xBound, yBound = im.size
+xBound, yBound = newImg.size
 
 img = Image.new('RGB', (xBound, yBound))
 
