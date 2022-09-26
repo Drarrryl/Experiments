@@ -3,7 +3,7 @@ from webcolors import rgb_to_name
 from functions import returnGreat, closest_colour, inColBounds, rgb2name
 from newPixel import zoom, coordBound
 
-im = Image.open(r"C:\Users\trued\Documents\Python\Experiments\Pictures\ocean3.png")
+im = Image.open(r"C:\Users\trued\Documents\Python\Experiments\Pictures\ocean1.png")
 newImg = zoom(im)
 px = newImg.load()
 

@@ -1,5 +1,5 @@
 from PIL import Image, ImageFilter
-#im = Image.open(r"/workspace/Experiments/Pictures/ocean3.png")
+im = Image.open(r"C:\Users\trued\Documents\Python\Experiments\Pictures\capture0.JPG")
 
 def coordBound(img):
     xBound, yBound = img.size
@@ -78,5 +78,5 @@ def zoom(im):
             newImg.putpixel((ix, iy), px[x, y])
     return newImg
 
-#newImg = zoom(im)
-#newImg.save("result.png")
+newImg = zoom(im)
+newImg.save("result.png")

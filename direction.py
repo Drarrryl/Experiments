@@ -17,6 +17,11 @@ block.penup()
 blockdx = 0.05
 blockdy = 0.05
 
+trail = turtle.Turtle()
+trail.hideturtle()
+ext = turtle.Turtle()
+ext.hideturtle()
+
 def setRight():
     rightBool[0] = True
 def setLeft():
@@ -66,10 +71,65 @@ win.onkeyrelease(unDown, "s")
 while True:
     win.update()
     if rightBool[0] == True:
+        distS = block.xcor()
         right()
+        distE = block.xcor()
+        dist = (distE - distS)+10
+        xOffset = block.xcor()-dist-10
+        yOffset = block.ycor()+10
+        turtle.addshape("trail", ((0, 0), (0, dist), (20, dist), (20, 0)))
+        trail.showturtle()
+        trail.shape("trail")
+        trail.color("orange")
+        trail.penup()
+        trail.goto(xOffset, yOffset)
+        ext.showturtle()
+        ext.shape("trail")
+        ext.color("orange")
+        ext.penup()
+        ext.goto(xOffset-dist, yOffset)
+        mult = 0
+        for i in range(1):
+            ext.shape("trail")
+            ext.color("orange")
+            ext.penup()
+            mult += 10
+            ext.goto(xOffset-dist, yOffset)
+        ext.clear()
+        trail.clear()
     if leftBool[0] == True:
+        distS = block.xcor()
         left()
+        distE = block.xcor()
+        dist = (distE - distS)+10
+        turtle.addshape("trail", ((0, 0), (0, dist), (20, dist), (20, 0)))
+        trail.showturtle()
+        trail.shape("trail")
+        trail.color("orange")
+        trail.penup()
+        trail.goto(block.xcor()+dist, block.ycor()+10)
+        trail.clear()
     if upBool[0] == True:
+        distS = block.xcor()
         up()
+        distE = block.xcor()
+        dist = (distE - distS)+10
+        turtle.addshape("trail", ((0, 0), (dist, 0), (dist, 20), (0, 20)))
+        trail.showturtle()
+        trail.shape("trail")
+        trail.color("orange")
+        trail.penup()
+        trail.goto(block.xcor()-10, block.ycor()-dist)
+        trail.clear()
     if downBool[0] == True:
+        distS = block.xcor()
         down()
+        distE = block.xcor()
+        dist = (distE - distS)+10
+        turtle.addshape("trail", ((0, 0), (dist, 0), (dist, 20), (0, 20)))
+        trail.showturtle()
+        trail.shape("trail")
+        trail.color("orange")
+        trail.penup()
+        trail.goto(block.xcor()-10, block.ycor()+dist+10)
+        trail.clear()

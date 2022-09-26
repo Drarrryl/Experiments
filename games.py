@@ -49,31 +49,10 @@ def generateBoard(root):
     #Generates a live interactive sandbox for the user
     mainloop()
 
-def generateRunner(root):
-        root.destroy()
-        # Generate Window
-        win = turtle.Screen()
-        win.title("Runner")
-        win.bgcolor("light green")
-        win.setup(width = 720, height = 240)
-        win.tracer(0)
+def generateRunner():
+    level = 0
+    highScore = 0
 
-        # Generate Scenary
-        grass = turtle.addshape("rectangle", ((-360, -120), (360, -120), (360, -240), (-360, -240)))
-        win.addshape("rectangle", ((-360, -120), (360, -120), (360, -240), (-360, -240)))
-        # Create player
-        player = turtle.Turtle()
-        player.speed(0)
-        player.penup()
-        player.shape("square")
-        player.shapesize(stretch_len=1)
-        player.color("white")
-        player.goto(-340, -60)
-
-        while True:
-            win.update()
-            #if player.ycor() > grass.ycor():
-            #    player.sety(player.ycor()-1)
 
 def mainMenu():
     global root
@@ -83,7 +62,7 @@ def mainMenu():
     root.geometry("720x240")
     title = Label(root, text = "Main Menu", bg = "light green")
     title.pack(side = TOP)
-    runner = Button(root, text = "Play Runner", command = lambda: generateRunner(root))
+    runner = Button(root, text = "Play Runner", command = generateRunner)
     runner.pack(side = TOP)
     Tic = Button(root, text = "Play Tic Tac Toe", command = lambda: generateBoard(root))
     Tic.pack(side = TOP)
